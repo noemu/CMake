@@ -72,14 +72,14 @@ set(ZLIB_NAMES_DEBUG zd zlibd zdlld zlibd1 zlib1d zlibstaticd)
 
 # Try each search configuration.
 foreach(search ${_ZLIB_SEARCHES})
-  find_path(ZLIB_INCLUDE_DIR NAMES zlib.h ${${search}} PATH_SUFFIXES include)
+  find_path(ZLIB_INCLUDE_DIR NAMES zlib.h PATHS ${${search}} PATH_SUFFIXES include)
 endforeach()
 
 # Allow ZLIB_LIBRARY to be set manually, as the location of the zlib library
 if(NOT ZLIB_LIBRARY)
   foreach(search ${_ZLIB_SEARCHES})
-    find_library(ZLIB_LIBRARY_RELEASE NAMES ${ZLIB_NAMES} NAMES_PER_DIR ${${search}} PATH_SUFFIXES lib)
-    find_library(ZLIB_LIBRARY_DEBUG NAMES ${ZLIB_NAMES_DEBUG} NAMES_PER_DIR ${${search}} PATH_SUFFIXES lib)
+    find_library(ZLIB_LIBRARY_RELEASE NAMES ${ZLIB_NAMES} NAMES_PER_DIR PATHS ${${search}} PATH_SUFFIXES lib)
+    find_library(ZLIB_LIBRARY_DEBUG NAMES ${ZLIB_NAMES_DEBUG} NAMES_PER_DIR PATHS ${${search}} PATH_SUFFIXES lib)
   endforeach()
 
   include(${CMAKE_CURRENT_LIST_DIR}/SelectLibraryConfigurations.cmake)
